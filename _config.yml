@@ -1,0 +1,25 @@
+title: Migrate Linux workloads to Azure
+description: This lab teaches you how to prepare for and securely migrate Linux workloads to Azure.
+theme: just-the-docs
+
+# url: https://github.com/microsoft/Microsoft-TechExcel-Migrate-Linux-Workloads/tree/main
+
+aux_links:
+  "TechExcel: Migrate Linux workloads to Azuree": 
+    - "https://github.com/microsoft/Microsoft-TechExcel-Migrate-Linux-Workloads/tree/main"
+callouts_level: quiet # or loud
+callouts:
+  highlight:
+    color: yellow
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+  note:
+    title: Note 
+    color: purple
+  warning:
+    title: Warning
+    color: red
