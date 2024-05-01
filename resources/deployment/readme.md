@@ -1,4 +1,4 @@
-# Before Hands-on Lab Deployment Scripts
+# Lab Setup Deployment Scripts
 
 This directory contains the Lab setup deployment scripts for creating the required Azure Resources for this lab.
 
