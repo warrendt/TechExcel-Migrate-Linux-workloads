@@ -9,7 +9,7 @@ has_children: true
 
 ## Lab Scenario
 
-SOME TEXT
+In this exercise, you will migrate the on-premises MySQL database for the web application workload to Azure. The Azure Database Migration Service will be used to perform the database migration from the MySQL server on-premises to the Azure Database for MySQL service.
 
 ## Objectives
 
@@ -20,4 +20,4 @@ After you complete this exercise, you will be able to:
 
 ## Lab Duration
 
-* **Estimated Time:** 90 minutes
+* **Estimated Time:** 60 minutes
