@@ -45,8 +45,8 @@ This lab has exercises on:
 * Secure Linux workloads
 * Enable Azure Arc on an on-premises virtual machine so it can be managed from Azure
 
-This lab is available as GitHub pages [here](https://microsoft.github.io/Microsoft-TechExcel-Migrate-Linux-Workloads)
-
+This lab is available as GitHub pages [here](https://microsoft.github.io/TechExcel-Migrate-Linux-workloads/)
+                                              
 
 ## Prerequisites
 
