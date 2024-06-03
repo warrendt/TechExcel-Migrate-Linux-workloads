@@ -5,7 +5,7 @@ theme: just-the-docs
 # url: https://github.com/microsoft/Microsoft-TechExcel-Migrate-Linux-Workloads/tree/main
 
 aux_links:
-  "TechExcel: Migrate Linux workloads to Azuree": 
+  "TechExcel: Migrate Linux workloads to Azure": 
     - "https://github.com/microsoft/Microsoft-TechExcel-Migrate-Linux-Workloads/tree/main"
 callouts_level: quiet # or loud
 callouts:
