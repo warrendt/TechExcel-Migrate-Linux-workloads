@@ -11,8 +11,8 @@ var spokeNamePrefix = '${resourceNameBase}-spoke-'
 var onpremWorkloadVMNamePrefix = '${onpremNamePrefix}workload-'
 
 var GitHubScriptRepo = 'microsoft/TechExcel-Migrate-Linux-workloads'
-/* var GitHubScriptRepoBranch = 'main' */
-var GitHubScriptRepoBranchURL = 'https://github.com//${GitHubScriptRepo}/resources/deployment/'
+var GitHubScriptRepoBranch = 'main'
+var GitHubScriptRepoBranchURL = 'https://github.com/${GitHubScriptRepo}/${GitHubScriptRepoBranch}/resources/deployment/'
 
 var WorkloadInstallScriptFileName = 'PG-workload-install.sh'
 var WorkloadInstallScriptURL = '${GitHubScriptRepoBranchURL}onprem/${WorkloadInstallScriptFileName}'
@@ -291,7 +291,7 @@ resource onprem_workload_vm 'Microsoft.Compute/virtualMachines@2021-07-01' = {
     tags: tags
     properties: {
         hardwareProfile: {
-            vmSize: 'Standard_D4s_v5'
+            vmSize: 'Standard_D2s_v3'
         }
         storageProfile: {
             osDisk: {
@@ -301,7 +301,7 @@ resource onprem_workload_vm 'Microsoft.Compute/virtualMachines@2021-07-01' = {
             imageReference: {
                 publisher: 'RedHat'
                 offer: 'RHEL'
-                sku: '90-gen2'
+                sku: '9-lvm-gen2'
                 version: 'latest'
             }
         }
