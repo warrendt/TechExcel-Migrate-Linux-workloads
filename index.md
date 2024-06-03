@@ -21,7 +21,7 @@ STILL ADD MORE CONTEXT ABOUT THE LABS
 
 - Azure VMs
 - Azure Arc
-- Azure MySQL databases
+- Azure Database for PostgreSQL - Flexible Server
 - Azure Networking
 - Microsoft Data Migration Assistant
 - Azure Data Studio
@@ -41,7 +41,7 @@ This lab has exercises on:
 
 * Provisioning a Linux Server VM
 * Set up a Linux Server for application migration to Azure
-* Migrate an on-premises MySQL Database to Azure MYSQL databases
+* Migrate an on-premises PostgreSQL Database to Azure Database for PostgreSQL - Flexible Server
 * Secure Linux workloads
 * Enable Azure Arc on an on-premises virtual machine so it can be managed from Azure
 

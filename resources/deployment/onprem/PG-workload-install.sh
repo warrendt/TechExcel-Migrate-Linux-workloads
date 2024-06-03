@@ -23,7 +23,6 @@ sudo postgresql-setup --initdb
 sudo systemctl start postgresql.service
 sudo systemctl enable postgresql.service
 
-
 # Configre PG
 sudo -u postgres -i
 cd data
@@ -37,16 +36,18 @@ sed -i "s/#port = 5432/port = 5432/g" postgresql.conf
 logout
 sudo systemctl restart postgresql.service
 
-#    
+#  Adjust SELinux to allow to allow HTTPD to make network connections  
 sudo setsebool -P httpd_can_network_connect_db 1
 
 # bring down Northwind database
-sudo git clone https://github.com/HeyMo0sh/northwind_psql.git
-# sudo git clone git@github.com:pthom/northwind_psql.git
+sudo git clone https://github.com/HeyMo0sh/techexcel_postgresql.git
 
 # Create User and database
 sudo -u postgres psql -c 'create database northwind;'
 sudo -u postgres psql -c "CREATE USER demouser WITH PASSWORD 'demopass123';"
+
+# create root user for migration
+sudo -u postgres psql -c "CREATE USER rootuser WITH PASSWORD '123rootpass456' SUPERUSER;"
 
 # Populate database
 # bring down file to home and then sudo cp to /var/lib/pgsql
