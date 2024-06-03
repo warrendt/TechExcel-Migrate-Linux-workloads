@@ -10,11 +10,11 @@ var spokeNamePrefix = '${resourceNameBase}-spoke-'
 
 var onpremWorkloadVMNamePrefix = '${onpremNamePrefix}workload-'
 
-var GitHubScriptRepo = 'microsoft/MCW-Building-the-business-migration-case-with-Linux-and-OSS-DB-to-Azure'
-var GitHubScriptRepoBranch = 'main'
-var GitHubScriptRepoBranchURL = 'https://raw.githubusercontent.com/${GitHubScriptRepo}/${GitHubScriptRepoBranch}/Hands-on lab/resources/deployment/'
+var GitHubScriptRepo = 'microsoft/TechExcel-Migrate-Linux-workloads'
+/* var GitHubScriptRepoBranch = 'main' */
+var GitHubScriptRepoBranchURL = 'https://github.com//${GitHubScriptRepo}/'
 
-var WorkloadInstallScriptFileName = 'workload-install.sh'
+var WorkloadInstallScriptFileName = 'PG-workload-install.sh'
 var WorkloadInstallScriptURL = '${GitHubScriptRepoBranchURL}onprem/${WorkloadInstallScriptFileName}'
 
 var labUsername = 'demouser'
@@ -256,11 +256,11 @@ resource onprem_workload_nsg 'Microsoft.Network/networkSecurityGroups@2019-02-01
                 }
             }
             {
-                name: 'MySQL'
+                name: 'PostgreSQL'
                 properties: {
                     protocol: 'TCP'
                     sourcePortRange: '*'
-                    destinationPortRange: '3306'
+                    destinationPortRange: '5432'
                     sourceAddressPrefix: '*'
                     destinationAddressPrefix: '*'
                     access: 'Allow'
