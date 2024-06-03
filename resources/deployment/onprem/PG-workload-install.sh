@@ -40,7 +40,7 @@ sudo systemctl restart postgresql.service
 sudo setsebool -P httpd_can_network_connect_db 1
 
 # bring down Northwind database
-sudo git clone https://github.com/HeyMo0sh/techexcel_postgresql.git
+sudo git clone https://github.com/microsoft/TechExcel-Migrate-Linux-workloads.git
 
 # Create User and database
 sudo -u postgres psql -c 'create database northwind;'
@@ -51,10 +51,10 @@ sudo -u postgres psql -c "CREATE USER rootuser WITH PASSWORD '123rootpass456' SU
 
 # Populate database
 # bring down file to home and then sudo cp to /var/lib/pgsql
-sudo cp northwind_psql/northwind.sql /var/lib/pgsql
+sudo cp TechExcel-Migrate-Linux-workloads/resources/deployment/onprem/database/northwind.sql /var/lib/pgsql
 sudo -u postgres psql -d northwind -a -f /var/lib/pgsql/northwind.sql
 sudo -u postgres psql -d northwind -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO demouser;"
 sudo -u postgres psql -d northwind -c "GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO demouser;"
 
 # Copy in the php file
-sudo cp northwind_psql/orders.php /var/www/html
+sudo cp TechExcel-Migrate-Linux-workloads/resources/deployment/onprem/webapp/orders.php /var/www/html

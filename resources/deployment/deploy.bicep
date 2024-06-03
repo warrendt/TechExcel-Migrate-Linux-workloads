@@ -10,7 +10,7 @@ var spokeNamePrefix = '${resourceNameBase}-spoke-'
 
 var onpremWorkloadVMNamePrefix = '${onpremNamePrefix}workload-'
 
-var GitHubScriptRepo = 'HeyMo0sh/techexcel_postgresql'
+var GitHubScriptRepo = 'microsoft/TechExcel-Migrate-Linux-workloads'
 /* var GitHubScriptRepoBranch = 'main' */
 var GitHubScriptRepoBranchURL = 'https://github.com//${GitHubScriptRepo}/'
 
