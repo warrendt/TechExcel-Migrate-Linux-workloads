@@ -26,7 +26,7 @@
     "GitHubScriptRepo": "microsoft/MCW-Building-the-business-migration-case-with-Linux-and-OSS-DB-to-Azure",
     "GitHubScriptRepoBranch": "main",
     "GitHubScriptRepoBranchURL": "[format('https://raw.githubusercontent.com/{0}/{1}/Hands-on lab/resources/deployment/', variables('GitHubScriptRepo'), variables('GitHubScriptRepoBranch'))]",
-    "WorkloadInstallScriptFileName": "workload-install.sh",
+    "WorkloadInstallScriptFileName": "PG-workload-install.sh",
     "WorkloadInstallScriptURL": "[format('{0}onprem/{1}', variables('GitHubScriptRepoBranchURL'), variables('WorkloadInstallScriptFileName'))]",
     "labUsername": "demouser",
     "labPassword": "demo!pass123",
@@ -283,11 +283,11 @@
             }
           },
           {
-            "name": "MySQL",
+            "name": "PostgreSQL",
             "properties": {
               "protocol": "TCP",
               "sourcePortRange": "*",
-              "destinationPortRange": "3306",
+              "destinationPortRange": "5432",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",

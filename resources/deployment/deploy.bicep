@@ -12,7 +12,7 @@ var onpremWorkloadVMNamePrefix = '${onpremNamePrefix}workload-'
 
 var GitHubScriptRepo = 'microsoft/TechExcel-Migrate-Linux-workloads'
 /* var GitHubScriptRepoBranch = 'main' */
-var GitHubScriptRepoBranchURL = 'https://github.com//${GitHubScriptRepo}/'
+var GitHubScriptRepoBranchURL = 'https://github.com//${GitHubScriptRepo}/resources/deployment/'
 
 var WorkloadInstallScriptFileName = 'PG-workload-install.sh'
 var WorkloadInstallScriptURL = '${GitHubScriptRepoBranchURL}onprem/${WorkloadInstallScriptFileName}'
