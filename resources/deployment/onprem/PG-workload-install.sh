@@ -24,16 +24,15 @@ sudo systemctl start postgresql.service
 sudo systemctl enable postgresql.service
 
 # Configre PG
-sudo -u postgres -i
-cd data
-sed -i "s/ident/trust/g" pg_hba.conf
-sed -i "s/peer/trust/g" pg_hba.conf
-sed -i "s/32/0/g"  pg_hba.conf
-sed -i "s/127/0/g"  pg_hba.conf
-sed -i '115s/\.1/\.0/;121s/\.1/\.0/' pg_hba.conf
-sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" postgresql.conf
-sed -i "s/#port = 5432/port = 5432/g" postgresql.conf
-logout
+sudo sed -i "s/ident/trust/g" /var/lib/pgsql/data/pg_hba.conf
+sudo sed -i "s/peer/trust/g" /var/lib/pgsql/data/pg_hba.conf
+sudo sed -i "s/32/0/g"  /var/lib/pgsql/data/pg_hba.conf
+sudo sed -i "s/127/0/g"  /var/lib/pgsql/data/pg_hba.conf
+sudo sed -i '115s/\.1/\.0/;121s/\.1/\.0/' /var/lib/pgsql/data/pg_hba.conf
+sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgsql/data/postgresql.conf
+sudo sed -i "s/#port = 5432/port = 5432/g" /var/lib/pgsql/data/postgresql.conf
+
+# Restart PG
 sudo systemctl restart postgresql.service
 
 #  Adjust SELinux to allow to allow HTTPD to make network connections  
