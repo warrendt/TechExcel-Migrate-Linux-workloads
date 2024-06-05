@@ -45,5 +45,10 @@ This lab is available as GitHub pages [here](https://microsoft.github.io/TechExc
 
 For running this lab you will need:
 
-    - An Azure subscription without a spending cap.
-    - A desktop, laptop, or virtual machine and access to install software on that machine.
+    - An Azure subscription with appropriate quotas to run a Standard_D2s_v3 with 2 vcpus.
+    - Cloud Shell setup in your subscription.
+    - A desktop, laptop, or virtual machine to run the lab.
+
+## Cost Estimation
+
+For running this lab the cost wll be around $9/day if you choose the smaller version of Azure Database for PostgreSQL Flexible Server.
