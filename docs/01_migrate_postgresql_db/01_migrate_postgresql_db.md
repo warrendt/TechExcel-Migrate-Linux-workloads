@@ -15,7 +15,7 @@ In this exercise, you will migrate the on-premises PostgreSQL database for the w
 
 After you complete this exercise, you will be able to:
 
-* Create an Azure Database for PostgreSQL - Flexible server instance
+* Create an Azure Database for PostgreSQL - Flexible Server instance
 * Create a database hosted in this instance which will be the target for migration
 * Setup a migration project in Azure Database for PostgreSQL Flexible Server
 * Migrate your database from on-premises to Azure Database for PostgreSQL Flexible Server
