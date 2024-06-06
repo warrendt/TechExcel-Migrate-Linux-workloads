@@ -42,8 +42,9 @@ sudo setsebool -P httpd_can_network_connect_db 1
 sudo git clone https://github.com/microsoft/TechExcel-Migrate-Linux-workloads.git
 
 # Create User and database
-sudo -u postgres psql -c 'create database northwind;'
 sudo -u postgres psql -c "CREATE USER demouser WITH PASSWORD 'demopass123';"
+sudo -u postgres psql -c "CREATE TABLESPACE northwindspace LOCATION '/var/lib/pgsql/data';"
+sudo -u postgres psql -c "CREATE DATABASE northwind OWNER demouser TABLESPACE northwindspace;"
 
 # create root user for migration
 sudo -u postgres psql -c "CREATE USER rootuser WITH PASSWORD '123rootpass456' SUPERUSER;"
