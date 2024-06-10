@@ -1,5 +1,7 @@
 @description('The prefix base used to name resources created.')
 param resourceNameBase string = 'terrafirm'
+@secure()
+param userDefinedPassword string = 'demo!pass123'
 
 
 var location = resourceGroup().location
@@ -18,7 +20,7 @@ var WorkloadInstallScriptFileName = 'PG-workload-install.sh'
 var WorkloadInstallScriptURL = '${GitHubScriptRepoBranchURL}onprem/${WorkloadInstallScriptFileName}'
 
 var labUsername = 'demouser'
-var labPassword = 'demo!pass123'
+var labPassword = ${userDefinedPassword}
 
 var tags = {
     purpose: 'TechExcel'
