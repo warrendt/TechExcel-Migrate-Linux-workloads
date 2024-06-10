@@ -15,6 +15,13 @@
       "metadata": {
         "description": "The prefix base used to name resources created."
       }
+    },
+    "userDefinedPassword": {
+      "type": "string",
+      "defaultValue": "demo!pass123",
+      "metadata": {
+        "description": "The password used for the Virtual Server."
+      }
     }
   },
   "variables": {
@@ -29,7 +36,7 @@
     "WorkloadInstallScriptFileName": "PG-workload-install.sh",
     "WorkloadInstallScriptURL": "[format('{0}onprem/{1}', variables('GitHubScriptRepoBranchURL'), variables('WorkloadInstallScriptFileName'))]",
     "labUsername": "demouser",
-    "labPassword": "demo!pass123",
+    "labPassword": "[parameters('userDefinedPassword')]",
     "tags": {
       "purpose": "TechExcel"
     }
