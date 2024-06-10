@@ -18,9 +18,9 @@
     },
     "userDefinedPassword": {
       "type": "string",
-      "defaultValue": "demo!pass123",
+      "defaultValue": "************",
       "metadata": {
-        "description": "The password used for the Virtual Server."
+        "description": "The password used for the Virtual Server - replace with your own secure password."
       }
     }
   },
