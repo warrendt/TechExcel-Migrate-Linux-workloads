@@ -1,7 +1,7 @@
 @description('The prefix base used to name resources created.')
 param resourceNameBase string = 'terrafirm'
 @secure()
-param userDefinedPassword string = 'demo!pass123'
+param userDefinedPassword string = '********'
 
 
 var location = resourceGroup().location
