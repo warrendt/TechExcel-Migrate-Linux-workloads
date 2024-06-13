@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.10.61.36676",
-      "templateHash": "2073796445692807532"
+      "version": "0.28.1.47646",
+      "templateHash": "7099869629240432247"
     }
   },
   "parameters": {
@@ -17,11 +17,8 @@
       }
     },
     "userDefinedPassword": {
-      "type": "string",
-      "defaultValue": "************",
-      "metadata": {
-        "description": "The password used for the Virtual Server - replace with your own secure password."
-      }
+      "type": "securestring",
+      "defaultValue": "********"
     }
   },
   "variables": {
@@ -30,13 +27,14 @@
     "hubNamePrefix": "[format('{0}-hub-', parameters('resourceNameBase'))]",
     "spokeNamePrefix": "[format('{0}-spoke-', parameters('resourceNameBase'))]",
     "onpremWorkloadVMNamePrefix": "[format('{0}workload-', variables('onpremNamePrefix'))]",
+    "onpremVMNamePrefix": "[format('{0}vm-', variables('onpremNamePrefix'))]",
     "GitHubScriptRepo": "microsoft/TechExcel-Migrate-Linux-workloads",
     "GitHubScriptRepoBranch": "main",
     "GitHubScriptRepoBranchURL": "[format('https://raw.githubusercontent.com/{0}/{1}/resources/deployment/', variables('GitHubScriptRepo'), variables('GitHubScriptRepoBranch'))]",
     "WorkloadInstallScriptFileName": "PG-workload-install.sh",
     "WorkloadInstallScriptURL": "[format('{0}onprem/{1}', variables('GitHubScriptRepoBranchURL'), variables('WorkloadInstallScriptFileName'))]",
     "labUsername": "demouser",
-    "labPassword": "[parameters('userDefinedPassword')]",
+    "labPassword": "[format('{0}', parameters('userDefinedPassword'))]",
     "tags": {
       "purpose": "TechExcel"
     }
@@ -380,6 +378,144 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines', format('{0}vm', variables('onpremWorkloadVMNamePrefix')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2021-03-01",
+      "name": "[format('{0}nic', variables('onpremVMNamePrefix'))]",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[format('{0}', resourceId('Microsoft.Network/publicIPAddresses', format('{0}pip', variables('onpremVMNamePrefix'))))]"
+              },
+              "subnet": {
+                "id": "[format('{0}/subnets/default', resourceId('Microsoft.Network/virtualNetworks', format('{0}vnet', variables('onpremNamePrefix'))))]"
+              },
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}nsg', variables('onpremVMNamePrefix')))]"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', format('{0}vnet', variables('onpremNamePrefix')))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', format('{0}nsg', variables('onpremVMNamePrefix')))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}pip', variables('onpremVMNamePrefix')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2020-11-01",
+      "name": "[format('{0}pip', variables('onpremVMNamePrefix'))]",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "sku": {
+        "name": "Standard",
+        "tier": "Regional"
+      },
+      "properties": {
+        "publicIPAddressVersion": "IPv4",
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2019-02-01",
+      "name": "[format('{0}nsg', variables('onpremVMNamePrefix'))]",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "SSH",
+            "properties": {
+              "protocol": "TCP",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "PostgreSQL",
+            "properties": {
+              "protocol": "TCP",
+              "sourcePortRange": "*",
+              "destinationPortRange": "5432",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "HTTP",
+            "properties": {
+              "protocol": "TCP",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 300,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2021-07-01",
+      "name": "[format('{0}vm', variables('onpremVMNamePrefix'))]",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_D2s_v3"
+        },
+        "storageProfile": {
+          "osDisk": {
+            "osType": "Linux",
+            "createOption": "fromImage"
+          },
+          "imageReference": {
+            "publisher": "RedHat",
+            "offer": "RHEL",
+            "sku": "9-lvm-gen2",
+            "version": "latest"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}nic', variables('onpremVMNamePrefix')))]"
+            }
+          ]
+        },
+        "osProfile": {
+          "computerName": "[format('{0}vm', variables('onpremVMNamePrefix'))]",
+          "adminUsername": "[variables('labUsername')]",
+          "adminPassword": "[variables('labPassword')]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": false
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', format('{0}nic', variables('onpremVMNamePrefix')))]"
       ]
     }
   ]

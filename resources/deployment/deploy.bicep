@@ -11,6 +11,9 @@ var hubNamePrefix = '${resourceNameBase}-hub-'
 var spokeNamePrefix = '${resourceNameBase}-spoke-'
 
 var onpremWorkloadVMNamePrefix = '${onpremNamePrefix}workload-'
+var onpremVMNamePrefix = '${onpremNamePrefix}vm-'
+
+
 
 var GitHubScriptRepo = 'microsoft/TechExcel-Migrate-Linux-workloads'
 var GitHubScriptRepoBranch = 'main'
@@ -20,7 +23,7 @@ var WorkloadInstallScriptFileName = 'PG-workload-install.sh'
 var WorkloadInstallScriptURL = '${GitHubScriptRepoBranchURL}onprem/${WorkloadInstallScriptFileName}'
 
 var labUsername = 'demouser'
-var labPassword = ${userDefinedPassword}
+var labPassword = '${userDefinedPassword}'
 
 var tags = {
     purpose: 'TechExcel'
@@ -342,6 +345,138 @@ resource onprem_workload_vm_ext_installscript 'Microsoft.Compute/virtualMachines
                 WorkloadInstallScriptURL
             ]
             commandToExecute: 'sh ${WorkloadInstallScriptFileName}'
+        }
+    }
+}
+
+
+
+/* ****************************
+terrafirm Onprem VM
+**************************** */
+
+resource terrafirm_onprem_nic 'Microsoft.Network/networkInterfaces@2021-03-01' = {
+    name: '${onpremVMNamePrefix}nic'
+    location: location
+    tags: tags
+    properties: {
+        ipConfigurations: [
+            {
+                name: 'ipconfig1'
+                properties: {
+                    publicIPAddress: {
+                        id: '${terrafirm_onprem_public_ip.id}'
+                    }
+                    subnet: {
+                        id: '${onprem_vnet.id}/subnets/default'
+                    }
+                    privateIPAllocationMethod: 'Dynamic'
+                }
+            }
+        ]
+        networkSecurityGroup: {
+            id: terrafirm_onprem_nsg.id
+        }
+    }
+}
+
+resource terrafirm_onprem_public_ip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
+    name: '${onpremVMNamePrefix}pip'
+    location: location
+    tags: tags
+    sku: {
+        name: 'Standard'
+        tier: 'Regional'
+    }
+    properties: {
+        publicIPAddressVersion: 'IPv4'
+        publicIPAllocationMethod: 'Static'
+    }
+}
+
+resource terrafirm_onprem_nsg 'Microsoft.Network/networkSecurityGroups@2019-02-01' = {
+    name: '${onpremVMNamePrefix}nsg'
+    location: location
+    tags: tags
+    properties: {
+        securityRules: [
+            {
+                name: 'SSH'
+                properties: {
+                    protocol: 'TCP'
+                    sourcePortRange: '*'
+                    destinationPortRange: '22'
+                    sourceAddressPrefix: '*'
+                    destinationAddressPrefix: '*'
+                    access: 'Allow'
+                    priority: 100
+                    direction: 'Inbound'
+                }
+            }
+            {
+                name: 'PostgreSQL'
+                properties: {
+                    protocol: 'TCP'
+                    sourcePortRange: '*'
+                    destinationPortRange: '5432'
+                    sourceAddressPrefix: '*'
+                    destinationAddressPrefix: '*'
+                    access: 'Allow'
+                    priority: 200
+                    direction: 'Inbound'
+                }
+            }
+            {
+                name: 'HTTP'
+                properties: {
+                    protocol: 'TCP'
+                    sourcePortRange: '*'
+                    destinationPortRange: '80'
+                    sourceAddressPrefix: '*'
+                    destinationAddressPrefix: '*'
+                    access: 'Allow'
+                    priority: 300
+                    direction: 'Inbound'
+                }
+            }
+        ]
+    }
+}
+
+resource terrafirm_onprem_vm 'Microsoft.Compute/virtualMachines@2021-07-01' = {
+    name: '${onpremVMNamePrefix}vm'
+    location: location
+    tags: tags
+    properties: {
+        hardwareProfile: {
+            vmSize: 'Standard_D2s_v3'
+        }
+        storageProfile: {
+            osDisk: {
+                osType: 'Linux'
+                createOption: 'fromImage'
+            }
+            imageReference: {
+                publisher: 'RedHat'
+                offer: 'RHEL'
+                sku: '9-lvm-gen2'
+                version: 'latest'
+            }
+        }
+        networkProfile: {
+            networkInterfaces: [
+                {
+                    id: terrafirm_onprem_nic.id
+                }
+            ]
+        }
+        osProfile: {
+            computerName: '${onpremVMNamePrefix}vm'
+            adminUsername: labUsername
+            adminPassword: labPassword
+            linuxConfiguration: {
+                disablePasswordAuthentication: false
+            }
         }
     }
 }
