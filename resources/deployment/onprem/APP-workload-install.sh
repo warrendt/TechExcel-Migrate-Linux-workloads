@@ -12,6 +12,9 @@ sudo firewall-cmd --permanent --add-port=80/tcp
 sudo firewall-cmd --permanent --add-port=443/tcp
 sudo firewall-cmd --reload
 
+# backup firewall rules
+sudo cp /etc/firewalld/direct.xml /etc/firewalld/direct.xml.backup
+
 #  Adjust SELinux to allow to allow HTTPD to make network connections  
 sudo setsebool -P httpd_can_network_connect_db 1
 
