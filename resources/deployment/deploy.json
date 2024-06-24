@@ -27,7 +27,7 @@
     "hubNamePrefix": "[format('{0}-hub-', parameters('resourceNameBase'))]",
     "spokeNamePrefix": "[format('{0}-spoke-', parameters('resourceNameBase'))]",
     "onpremWorkloadVMNamePrefix": "[format('{0}workload-', variables('onpremNamePrefix'))]",
-    "onpremVMNamePrefix": "[format('{0}vm-', variables('onpremNamePrefix'))]",
+    "onpremVMNamePrefix": "[format('{0}app-', variables('onpremNamePrefix'))]",
     "GitHubScriptRepo": "microsoft/TechExcel-Migrate-Linux-workloads",
     "GitHubScriptRepoBranch": "main",
     "GitHubScriptRepoBranchURL": "[format('https://raw.githubusercontent.com/{0}/{1}/resources/deployment/', variables('GitHubScriptRepo'), variables('GitHubScriptRepoBranch'))]",

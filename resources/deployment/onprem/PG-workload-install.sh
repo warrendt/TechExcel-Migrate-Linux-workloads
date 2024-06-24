@@ -6,13 +6,7 @@ sudo dnf module install postgresql:16/server -y
 # bring down necessary utilities
 sudo yum install git php php-pgsql httpd -y
 
-# setup apache
-sudo systemctl start httpd
-sudo systemctl enable httpd
-
 # setup firewall rules
-sudo firewall-cmd --permanent --add-port=80/tcp
-sudo firewall-cmd --permanent --add-port=443/tcp
 sudo firewall-cmd --permanent --add-port=5432/tcp
 sudo firewall-cmd --reload
 
@@ -55,6 +49,3 @@ sudo cp TechExcel-Migrate-Linux-workloads/resources/deployment/onprem/database/n
 sudo -u postgres psql -d northwind -a -f /var/lib/pgsql/northwind.sql
 sudo -u postgres psql -d northwind -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO demouser;"
 sudo -u postgres psql -d northwind -c "GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO demouser;"
-
-# Copy in the php file
-sudo cp TechExcel-Migrate-Linux-workloads/resources/deployment/onprem/webapp/orders.php /var/www/html
