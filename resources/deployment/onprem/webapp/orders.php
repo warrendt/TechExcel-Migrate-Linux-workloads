@@ -37,7 +37,7 @@
     <h1>Order Details</h1>
 
     <?php
-        $host = '127.0.0.1';
+        $host = '10.0.0.4';
         $port = '5432';
         $dbname = 'northwind';
         $user = 'demouser';
