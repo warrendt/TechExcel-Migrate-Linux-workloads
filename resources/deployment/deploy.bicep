@@ -11,7 +11,7 @@ var hubNamePrefix = '${resourceNameBase}-hub-'
 var spokeNamePrefix = '${resourceNameBase}-spoke-'
 
 var onpremWorkloadVMNamePrefix = '${onpremNamePrefix}workload-'
-var onpremVMNamePrefix = '${onpremNamePrefix}vm-'
+var onpremVMNamePrefix = '${onpremNamePrefix}app-'
 
 
 
