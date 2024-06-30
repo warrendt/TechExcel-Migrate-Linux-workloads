@@ -51,4 +51,4 @@ For running this lab you will need:
 
 ## Cost Estimation
 
-For running this lab the cost wll be around $9/day if you choose the smaller version of Azure Database for PostgreSQL Flexible Server.
+For running this lab the cost wll be around $13/day if you choose the smaller version of Azure Database for PostgreSQL Flexible Server.
