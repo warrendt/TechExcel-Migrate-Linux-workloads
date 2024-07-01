@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # bring down necessary utilities
-sudo yum install git php php-pgsql httpd -y
+sudo yum install git postgresql php php-pgsql httpd -y
 
 # setup apache
 sudo systemctl start httpd
