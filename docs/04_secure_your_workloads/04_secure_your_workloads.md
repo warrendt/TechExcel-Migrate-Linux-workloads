@@ -9,7 +9,11 @@ has_children: true
 
 ## Lab Scenario
 
-In this exercise, you will use Microsoft Defender to help you protect your workloads like SQL databases, Storage Accounts, and Virtual Machines. We will also configure a managed firewall (Azure Firewll) to protect the network traffic.
+In this exercise, you will use Microsoft Defender to help you protect your workloads like Databases, Storage Accounts, and Virtual Machines. You will also configure a managed firewall (Azure Firewll) to protect the network traffic for the terrafirm-onprem-workload-vm as the intention is to block all outgoing internet traffic from this server - as it has now been migrated to Azure via a lift and shift and network access from it out needs to managed.
+
+    >Note: For cost savings you are using the existing onprem VM and existing onprem network. In reality you would create a new virtual network in Azure.
+
+Naming of resources follows the [Azure Naming Standards](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
 
 ## Objectives
 
