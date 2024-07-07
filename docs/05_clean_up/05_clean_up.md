@@ -10,7 +10,8 @@ has_children: true
 ## Lab Scenario
 
 Now that you have completed all the tasks of this lab, it is time to say goodbye to all the Azure resources running on your Azure Subscription. Removing unused resources ensures you will not see unexpected charges.
-You should follow all steps provided *after* taken all the exercises.
+
+You should follow all steps provided *after* completing all the exercises.
 
 ## Objectives
 

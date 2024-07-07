@@ -13,7 +13,7 @@ In this exercise, you will use Microsoft Defender to help you protect your workl
 
     >Note: For cost savings you are using the existing onprem VM and existing onprem network. In reality you would create a new virtual network in Azure.
 
-Naming of resources follows the [Azure Naming Standards](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
+The naming of Azure based resources follows the [Azure Naming Standards](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
 
 ## Objectives
 
