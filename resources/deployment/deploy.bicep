@@ -154,6 +154,38 @@ resource spoke_hub_vnet_peering 'Microsoft.Network/virtualNetworks/virtualNetwor
     }
 }
 
+resource spoke_onprem_vnet_peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-11-01' = {
+    name: '${spoke_vnet.name}/spoke-onprem'
+    properties: {
+        remoteVirtualNetwork: {
+            id: onprem_vnet.id
+        }
+        allowVirtualNetworkAccess: true
+        allowForwardedTraffic: true
+        remoteAddressSpace: {
+            addressPrefixes: [
+                '10.0.0.0/16'
+            ]
+        }
+    }
+}
+
+resource onprem_spoke_vnet_peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-11-01' = {
+    name: '${onprem_vnet.name}/onprem-spoke'
+    properties: {
+        remoteVirtualNetwork: {
+            id: spoke_vnet.id
+        }
+        allowVirtualNetworkAccess: true
+        allowForwardedTraffic: true
+        remoteAddressSpace: {
+            addressPrefixes: [
+                '10.2.0.0/16'
+            ]
+        }
+    }
+}
+
 /* ****************************
 Azure Bastion
 **************************** */
